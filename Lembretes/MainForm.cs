@@ -32,6 +32,12 @@ namespace Lembretes
             lembrete.Data = dtData.Value;
             this.lembreteBindingSource.Add(lembrete);
             this.dbContext!.SaveChanges();
+            var dataColumn = dgvLembretes.Columns[0];
+            dgvLembretes.Sort(dataColumn, ListSortDirection.Ascending);
+            if (cbFiltrarData.Checked)
+            {
+                FilterRows();
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -57,6 +63,11 @@ namespace Lembretes
             {
                 dgvLembretes.Columns.Insert(columnIndex, dgvDeleteColumn);
             }
+
+            var dataColumn = dgvLembretes.Columns[0];
+            dgvLembretes.Sort(dataColumn, ListSortDirection.Ascending);
+            dtFilterDate.Enabled = cbFiltrarData.Checked;
+            dtFilterDate.Value = DateTime.Now;
         }
 
         private void dgvLembretes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -65,6 +76,46 @@ namespace Lembretes
             {
                 this.lembreteBindingSource.RemoveCurrent();
                 this.dbContext!.SaveChanges();
+                if (cbFiltrarData.Checked)
+                {
+                    FilterRows();
+                }
+            }
+        }
+
+        private void cbFiltrarData_Click(object sender, EventArgs e)
+        {
+            dtFilterDate.Enabled = cbFiltrarData.Checked;
+            FilterRows(!cbFiltrarData.Checked);
+        }
+
+        private void dtFilterDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (cbFiltrarData.Checked)
+            {
+                FilterRows();
+            }
+        }
+
+        private void FilterRows(bool forceAllTrue = false)
+        {
+            DateTime selectedDate = dtFilterDate.Value.Date;
+
+            foreach (DataGridViewRow row in dgvLembretes.Rows)
+            {
+                dgvLembretes.CurrentCell = null;
+                if (forceAllTrue)
+                {
+                    row.Visible = true;
+                }
+                else
+                {
+                    if (row.Cells[0].Value != null && row.Cells[0].Value is DateTime)
+                    {
+                        DateTime.TryParse(row.Cells[0].Value.ToString(), out DateTime cellDateValue);
+                        row.Visible = cellDateValue.Date == selectedDate.Date;
+                    }
+                }
             }
         }
     }

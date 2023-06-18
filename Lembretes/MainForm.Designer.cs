@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             btnCreate = new Button();
             txtName = new TextBox();
             label1 = new Label();
@@ -41,6 +42,8 @@
             lembreteBindingSource = new BindingSource(components);
             lembreteBindingSource1 = new BindingSource(components);
             label4 = new Label();
+            dtFilterDate = new DateTimePicker();
+            cbFiltrarData = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)dgvLembretes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lembreteBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lembreteBindingSource1).BeginInit();
@@ -114,7 +117,7 @@
             dgvLembretes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvLembretes.Columns.AddRange(new DataGridViewColumn[] { dataDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn });
             dgvLembretes.DataSource = lembreteBindingSource;
-            dgvLembretes.Location = new Point(19, 79);
+            dgvLembretes.Location = new Point(19, 104);
             dgvLembretes.Margin = new Padding(3, 2, 3, 2);
             dgvLembretes.MultiSelect = false;
             dgvLembretes.Name = "dgvLembretes";
@@ -162,11 +165,36 @@
             label4.TabIndex = 8;
             label4.Text = "Lista de lembretes";
             // 
+            // dtFilterDate
+            // 
+            dtFilterDate.CustomFormat = "dd/MM/yyyy";
+            dtFilterDate.Format = DateTimePickerFormat.Custom;
+            dtFilterDate.Location = new Point(212, 76);
+            dtFilterDate.Margin = new Padding(3, 2, 3, 2);
+            dtFilterDate.Name = "dtFilterDate";
+            dtFilterDate.Size = new Size(102, 23);
+            dtFilterDate.TabIndex = 9;
+            dtFilterDate.Value = new DateTime(2023, 6, 17, 16, 12, 23, 0);
+            dtFilterDate.ValueChanged += dtFilterDate_ValueChanged;
+            // 
+            // cbFiltrarData
+            // 
+            cbFiltrarData.AutoSize = true;
+            cbFiltrarData.Location = new Point(19, 80);
+            cbFiltrarData.Name = "cbFiltrarData";
+            cbFiltrarData.Size = new Size(165, 19);
+            cbFiltrarData.TabIndex = 10;
+            cbFiltrarData.Text = "Filtrar lembretes pela data:";
+            cbFiltrarData.UseVisualStyleBackColor = true;
+            cbFiltrarData.Click += cbFiltrarData_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(640, 323);
+            ClientSize = new Size(640, 351);
+            Controls.Add(cbFiltrarData);
+            Controls.Add(dtFilterDate);
             Controls.Add(label4);
             Controls.Add(dgvLembretes);
             Controls.Add(dtData);
@@ -175,6 +203,7 @@
             Controls.Add(label1);
             Controls.Add(txtName);
             Controls.Add(btnCreate);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "Lembretes";
@@ -200,5 +229,7 @@
         private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private BindingSource lembreteBindingSource1;
         private Label label4;
+        private DateTimePicker dtFilterDate;
+        private CheckBox cbFiltrarData;
     }
 }
