@@ -7,6 +7,7 @@ namespace Lembretes
     public partial class MainForm : Form
     {
         private LembreteContext? dbContext;
+        private const string removeColumnName = "remove_column";
         public MainForm()
         {
             InitializeComponent();
@@ -42,12 +43,29 @@ namespace Lembretes
             this.dbContext.Lembretes.Load();
             this.lembreteBindingSource.DataSource = dbContext.Lembretes.Local.ToBindingList();
             dtData.Value = DateTime.Now.AddDays(1);
+
+            DataGridViewImageColumn dgvDeleteColumn = new DataGridViewImageColumn();
+            dgvDeleteColumn.Name = removeColumnName;
+            dgvDeleteColumn.HeaderText = "Remover";
+            dgvDeleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+            Image iconDelete = Image.FromFile("deletar.ico");
+            dgvDeleteColumn.Image = iconDelete;
+
+            int columnIndex = 2;
+            if (dgvLembretes.Columns[removeColumnName] == null)
+            {
+                dgvLembretes.Columns.Insert(columnIndex, dgvDeleteColumn);
+            }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void dgvLembretes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            this.lembreteBindingSource.RemoveCurrent();
-            this.dbContext!.SaveChanges();
+            if (e.ColumnIndex == dgvLembretes.Columns[removeColumnName].Index)
+            {
+                this.lembreteBindingSource.RemoveCurrent();
+                this.dbContext!.SaveChanges();
+            }
         }
     }
 }

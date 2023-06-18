@@ -38,17 +38,17 @@
             dgvLembretes = new DataGridView();
             dataDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            lembreteBindingSource1 = new BindingSource(components);
             lembreteBindingSource = new BindingSource(components);
-            btnDelete = new Button();
+            lembreteBindingSource1 = new BindingSource(components);
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvLembretes).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)lembreteBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lembreteBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)lembreteBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(364, 63);
+            btnCreate.Location = new Point(536, 27);
             btnCreate.Margin = new Padding(3, 2, 3, 2);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(82, 22);
@@ -77,7 +77,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(27, 55);
+            label2.Location = new Point(306, 30);
             label2.Name = "label2";
             label2.Size = new Size(31, 15);
             label2.TabIndex = 4;
@@ -96,7 +96,7 @@
             // 
             dtData.CustomFormat = "dd/MM/yyyy HH:mm";
             dtData.Format = DateTimePickerFormat.Custom;
-            dtData.Location = new Point(68, 51);
+            dtData.Location = new Point(347, 26);
             dtData.Margin = new Padding(3, 2, 3, 2);
             dtData.Name = "dtData";
             dtData.Size = new Size(183, 23);
@@ -105,17 +105,25 @@
             // 
             // dgvLembretes
             // 
+            dgvLembretes.AllowUserToAddRows = false;
+            dgvLembretes.AllowUserToDeleteRows = false;
+            dgvLembretes.AllowUserToOrderColumns = true;
+            dgvLembretes.AllowUserToResizeColumns = false;
+            dgvLembretes.AllowUserToResizeRows = false;
             dgvLembretes.AutoGenerateColumns = false;
             dgvLembretes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvLembretes.Columns.AddRange(new DataGridViewColumn[] { dataDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn });
             dgvLembretes.DataSource = lembreteBindingSource;
-            dgvLembretes.Location = new Point(19, 92);
+            dgvLembretes.Location = new Point(19, 79);
             dgvLembretes.Margin = new Padding(3, 2, 3, 2);
+            dgvLembretes.MultiSelect = false;
             dgvLembretes.Name = "dgvLembretes";
+            dgvLembretes.ReadOnly = true;
             dgvLembretes.RowHeadersWidth = 51;
             dgvLembretes.RowTemplate.Height = 29;
-            dgvLembretes.Size = new Size(427, 208);
+            dgvLembretes.Size = new Size(599, 233);
             dgvLembretes.TabIndex = 7;
+            dgvLembretes.CellClick += dgvLembretes_CellClick;
             // 
             // dataDataGridViewTextBoxColumn
             // 
@@ -123,6 +131,7 @@
             dataDataGridViewTextBoxColumn.HeaderText = "Data";
             dataDataGridViewTextBoxColumn.MinimumWidth = 6;
             dataDataGridViewTextBoxColumn.Name = "dataDataGridViewTextBoxColumn";
+            dataDataGridViewTextBoxColumn.ReadOnly = true;
             dataDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
             dataDataGridViewTextBoxColumn.Width = 125;
             // 
@@ -132,34 +141,33 @@
             nameDataGridViewTextBoxColumn.HeaderText = "Name";
             nameDataGridViewTextBoxColumn.MinimumWidth = 6;
             nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            nameDataGridViewTextBoxColumn.ReadOnly = true;
             nameDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.False;
             nameDataGridViewTextBoxColumn.Width = 300;
-            // 
-            // lembreteBindingSource1
-            // 
-            lembreteBindingSource1.DataSource = typeof(Models.Lembrete);
             // 
             // lembreteBindingSource
             // 
             lembreteBindingSource.DataSource = typeof(Models.Lembrete);
             // 
-            // btnDelete
+            // lembreteBindingSource1
             // 
-            btnDelete.Location = new Point(364, 317);
-            btnDelete.Margin = new Padding(3, 2, 3, 2);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(82, 22);
-            btnDelete.TabIndex = 8;
-            btnDelete.Text = "Deletar";
-            btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
+            lembreteBindingSource1.DataSource = typeof(Models.Lembrete);
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(19, 62);
+            label4.Name = "label4";
+            label4.Size = new Size(102, 15);
+            label4.TabIndex = 8;
+            label4.Text = "Lista de lembretes";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(472, 348);
-            Controls.Add(btnDelete);
+            ClientSize = new Size(640, 323);
+            Controls.Add(label4);
             Controls.Add(dgvLembretes);
             Controls.Add(dtData);
             Controls.Add(label3);
@@ -172,8 +180,8 @@
             Text = "Lembretes";
             Load += MainForm_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLembretes).EndInit();
-            ((System.ComponentModel.ISupportInitialize)lembreteBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)lembreteBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)lembreteBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -190,7 +198,7 @@
         private BindingSource lembreteBindingSource;
         private DataGridViewTextBoxColumn dataDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private Button btnDelete;
         private BindingSource lembreteBindingSource1;
+        private Label label4;
     }
 }

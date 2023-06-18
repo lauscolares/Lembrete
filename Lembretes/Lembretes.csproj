@@ -16,4 +16,8 @@
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy /y &quot;$(ProjectDir)\deletar.ico&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;" />
+  </Target>
+
 </Project>
